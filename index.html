@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
-    <title>İlk Vercel Sitem</title>
+    <title>Hair MAX</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <h1>Merhaba 👋</h1>
-    <p>Bu site Vercel ile yayınlanacak.</p>
+    <div class="container">
 
-    <button id="btn">Tıkla</button>
+        <!-- SOL MENÜ -->
+        <aside class="sidebar">
+            <div class="logo">Hair MAX</div>
+
+            <nav>
+                <ul>
+                    <li onclick="loadPage('musteriler')">Müşteriler</li>
+                    <li onclick="loadPage('hizmetler')">Hizmetler</li>
+                    <li onclick="loadPage('urunler')">Ürünler</li>
+                    <li onclick="loadPage('randevu')">Randevu</li>
+                    <li onclick="loadPage('kullanicilar')">Kullanıcılar</li>
+                    <li onclick="loadPage('ayarlar')">Ayarlar</li>
+                </ul>
+            </nav>
+
+            <div class="datetime" id="datetime"></div>
+        </aside>
+
+        <!-- SAĞ İÇERİK -->
+        <main class="content" id="content">
+            <h1>Hoş Geldiniz</h1>
+            <p>Hair MAX yönetim paneline hoş geldiniz.</p>
+        </main>
+
+    </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>
