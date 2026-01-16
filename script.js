@@ -1,36 +1,158 @@
+let musteriler = [];
+let hizmetler = [];
+let urunler = [];
+
 function loadPage(page) {
     const content = document.getElementById("content");
 
-    const pages = {
-        musteriler: "<h1>Müşteriler</h1><p>Müşteri listesi burada yer alacak.</p>",
-        hizmetler: "<h1>Hizmetler</h1><p>Sunulan hizmetler burada listelenecek.</p>",
-        urunler: "<h1>Ürünler</h1><p>Ürün yönetimi sayfası.</p>",
-        randevu: "<h1>Randevu</h1><p>Randevu planlama ekranı.</p>",
-        kullanicilar: "<h1>Kullanıcılar</h1><p>Kullanıcı yönetimi.</p>",
-        ayarlar: "<h1>Ayarlar</h1><p>Sistem ayarları.</p>"
-    };
+    if (page === "musteriler") {
+        content.innerHTML = `
+            <h1>Müşteriler</h1>
 
-    content.innerHTML = pages[page];
+            <div class="form-group">
+                <label>Ad Soyad</label>
+                <input id="musteriAd" />
+            </div>
+
+            <div class="form-group">
+                <label>Telefon</label>
+                <input id="musteriTel" />
+            </div>
+
+            <div class="form-group">
+                <label>Adres</label>
+                <input id="musteriAdres" />
+            </div>
+
+            <button onclick="musteriEkle()">Ekle</button>
+
+            <div id="musteriListesi"></div>
+        `;
+        renderMusteriler();
+    }
+
+    if (page === "hizmetler") {
+        content.innerHTML = `
+            <h1>Hizmetler</h1>
+
+            <div class="form-group">
+                <label>Hizmet İsmi</label>
+                <input id="hizmetAd" />
+            </div>
+
+            <div class="form-group">
+                <label>Fiyat</label>
+                <input id="hizmetFiyat" />
+            </div>
+
+            <button onclick="hizmetEkle()">Ekle</button>
+
+            <div id="hizmetListesi"></div>
+        `;
+        renderHizmetler();
+    }
+
+    if (page === "urunler") {
+        content.innerHTML = `
+            <h1>Ürünler</h1>
+
+            <div class="form-group">
+                <label>Ürün İsmi</label>
+                <input id="urunAd" />
+            </div>
+
+            <div class="form-group">
+                <label>Fiyat</label>
+                <input id="urunFiyat" />
+            </div>
+
+            <button onclick="urunEkle()">Ekle</button>
+
+            <div id="urunListesi"></div>
+        `;
+        renderUrunler();
+    }
+}
+
+/* MÜŞTERİ */
+function musteriEkle() {
+    musteriler.push({
+        ad: musteriAd.value,
+        tel: musteriTel.value,
+        adres: musteriAdres.value
+    });
+    renderMusteriler();
+}
+
+function renderMusteriler() {
+    const div = document.getElementById("musteriListesi");
+    if (!div) return;
+
+    div.innerHTML = "";
+    musteriler.forEach((m, i) => {
+        div.innerHTML += `
+            <div class="list-item">
+                ${m.ad} - ${m.tel}
+                <button onclick="musteriler.splice(${i},1); renderMusteriler()">Sil</button>
+            </div>
+        `;
+    });
+}
+
+/* HİZMET */
+function hizmetEkle() {
+    hizmetler.push({
+        ad: hizmetAd.value,
+        fiyat: hizmetFiyat.value
+    });
+    renderHizmetler();
+}
+
+function renderHizmetler() {
+    const div = document.getElementById("hizmetListesi");
+    if (!div) return;
+
+    div.innerHTML = "";
+    hizmetler.forEach((h, i) => {
+        div.innerHTML += `
+            <div class="list-item">
+                ${h.ad} - ${h.fiyat} ₺
+                <button onclick="hizmetler.splice(${i},1); renderHizmetler()">Sil</button>
+            </div>
+        `;
+    });
+}
+
+/* ÜRÜN */
+function urunEkle() {
+    urunler.push({
+        ad: urunAd.value,
+        fiyat: urunFiyat.value
+    });
+    renderUrunler();
+}
+
+function renderUrunler() {
+    const div = document.getElementById("urunListesi");
+    if (!div) return;
+
+    div.innerHTML = "";
+    urunler.forEach((u, i) => {
+        div.innerHTML += `
+            <div class="list-item">
+                ${u.ad} - ${u.fiyat} ₺
+                <button onclick="urunler.splice(${i},1); renderUrunler()">Sil</button>
+            </div>
+        `;
+    });
 }
 
 /* TARİH & SAAT */
 function updateDateTime() {
     const now = new Date();
-
-    const date = now.toLocaleDateString("tr-TR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
-    });
-
-    const time = now.toLocaleTimeString("tr-TR", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-    });
-
     document.getElementById("datetime").innerHTML =
-        `<div>${date}</div><div>${time}</div>`;
+        now.toLocaleDateString("tr-TR") + "<br>" +
+        now.toLocaleTimeString("tr-TR");
 }
 
 setInterval(updateDateTime, 1000);
