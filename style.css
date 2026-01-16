@@ -2,25 +2,32 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.container {
+body {
+    height: 100vh;
+    background: #f4f4f4;
+}
+
+/* ANA YAPI */
+.app {
     display: flex;
     height: 100vh;
+    width: 100vw;
 }
 
 /* SOL MENÜ */
 .sidebar {
-    width: 250px;
-    background-color: #4b2ea8;
+    width: 260px;
+    background-color: #4b1fa6;
     color: white;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    padding: 20px;
 }
 
+/* LOGO */
 .logo {
     font-size: 26px;
     font-weight: 800;
@@ -28,77 +35,104 @@
 }
 
 /* MENÜ */
-nav ul {
-    list-style: none;
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-nav ul li {
-    padding: 14px 16px;
-    margin-bottom: 14px;
-    border-radius: 10px;
-    font-weight: 700;
+.menu button {
+    width: 100%;
+    background-color: #5f2bd9;
+    border: none;
+    color: white;
+    padding: 12px 14px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.15);
-    transition: 0.25s;
+    text-align: left;
 }
 
-nav ul li:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateX(4px);
+.menu button:hover {
+    background-color: #6f3cf0;
 }
 
-/* TARİH SAAT */
-.datetime {
+/* SOL ALT SAAT */
+#bottomClock {
+    margin-top: auto;
+    padding-top: 20px;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: bold;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* SAĞ TARAF */
-.content {
+.main {
     flex: 1;
-    background-color: #ffffff;
-    padding: 40px;
+    background-color: white;
+    padding: 30px;
+    position: relative;
+    overflow-y: auto;
 }
 
-/* FORM */
-.form-group {
+/* SAĞ ÜST SAAT */
+#topClock {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 13px;
+    color: #555;
+}
+
+/* İÇERİK */
+#content {
+    margin-top: 50px;
+}
+
+/* BAŞLIK */
+h2 {
     margin-bottom: 15px;
 }
 
-.form-group label {
-    font-weight: 700;
-    display: block;
-    margin-bottom: 6px;
+/* FORM */
+input {
+    padding: 8px;
+    margin-right: 5px;
 }
 
-.form-group input {
-    width: 300px;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-/* BUTON */
 button {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 700;
-    background-color: #4b2ea8;
-    color: white;
     cursor: pointer;
 }
 
-button:hover {
-    opacity: 0.9;
+.add-btn {
+    background-color: #4b1fa6;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+}
+
+.add-btn:hover {
+    background-color: #5f2bd9;
 }
 
 /* LİSTE */
 .list-item {
     margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    padding: 8px;
+    background: #f1f1f1;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
 }
