@@ -1,23 +1,43 @@
-<div class="sidebar">
-    <div>
-        <div class="logo">Hair MAX</div>
+<!DOCTYPE html>
+<html lang="tr">
 
-        <nav>
-            <ul>
-                <li onclick="loadPage('musteriler')">Müşteriler</li>
-                <li onclick="loadPage('hizmetler')">Hizmetler</li>
-                <li onclick="loadPage('urunler')">Ürünler</li>
-                <li onclick="loadPage('randevu')">Randevu</li>
-                <li onclick="loadPage('kullanicilar')">Kullanıcılar</li>
-                <li onclick="loadPage('ayarlar')">Ayarlar</li>
-            </ul>
-        </nav>
+<head>
+    <meta charset="UTF-8">
+    <title>Hair MAX</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="sidebar">
+            <div>
+                <div class="logo">Hair MAX</div>
+
+                <nav>
+                    <ul>
+                        <li onclick="loadPage('musteriler')">Müşteriler</li>
+                        <li onclick="loadPage('hizmetler')">Hizmetler</li>
+                        <li onclick="loadPage('urunler')">Ürünler</li>
+                        <li onclick="loadPage('randevu')">Randevu</li>
+                        <li onclick="loadPage('kullanicilar')">Kullanıcılar</li>
+                        <li onclick="loadPage('ayarlar')">Ayarlar</li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div id="datetime" class="datetime"></div>
+        </div>
+
+        <div class="content" id="content">
+            <h1>Hoş Geldiniz</h1>
+            <p>Sol menüden bir işlem seçin.</p>
+        </div>
+
     </div>
 
-    <div id="datetime" class="datetime"></div>
-</div>
+    <script src="script.js"></script>
+</body>
 
-<div class="content" id="content">
-    <h1>Hoş Geldiniz</h1>
-    <p>Sol menüden bir işlem seçin.</p>
-</div>
+</html>
