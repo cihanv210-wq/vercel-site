@@ -1,83 +1,66 @@
-let musteriler = [];
-let hizmetler = [];
-let urunler = [];
+/************ VERİLER (LOCAL STORAGE) ************/
+let musteriler = JSON.parse(localStorage.getItem("musteriler")) || [];
+let hizmetler = JSON.parse(localStorage.getItem("hizmetler")) || [];
+let urunler = JSON.parse(localStorage.getItem("urunler")) || [];
 
+function saveData() {
+    localStorage.setItem("musteriler", JSON.stringify(musteriler));
+    localStorage.setItem("hizmetler", JSON.stringify(hizmetler));
+    localStorage.setItem("urunler", JSON.stringify(urunler));
+}
+
+/************ SAYFA YÜKLEME ************/
 function loadPage(page) {
     const content = document.getElementById("content");
 
     if (page === "musteriler") {
         content.innerHTML = `
-            <h1>Müşteriler</h1>
-
-            <div class="form-group">
-                <label>Ad Soyad</label>
-                <input id="musteriAd">
-            </div>
-
-            <div class="form-group">
-                <label>Telefon</label>
-                <input id="musteriTel">
-            </div>
-
-            <div class="form-group">
-                <label>Adres</label>
-                <input id="musteriAdres">
-            </div>
-
-            <button id="btnMusteri">Ekle</button>
-            <div id="musteriListesi"></div>
+            <h2>Müşteriler</h2>
+            <input id="musteriAd" placeholder="Ad Soyad">
+            <input id="musteriTel" placeholder="Telefon">
+            <input id="musteriAdres" placeholder="Adres">
+            <button onclick="musteriEkle()">Ekle</button>
+            <ul id="musteriListe"></ul>
         `;
-
-        document.getElementById("btnMusteri").addEventListener("click", musteriEkle);
         renderMusteriler();
     }
 
     if (page === "hizmetler") {
         content.innerHTML = `
-            <h1>Hizmetler</h1>
-
-            <div class="form-group">
-                <label>Hizmet İsmi</label>
-                <input id="hizmetAd">
-            </div>
-
-            <div class="form-group">
-                <label>Fiyat</label>
-                <input id="hizmetFiyat">
-            </div>
-
-            <button id="btnHizmet">Ekle</button>
-            <div id="hizmetListesi"></div>
+            <h2>Hizmetler</h2>
+            <input id="hizmetAd" placeholder="Hizmet İsmi">
+            <input id="hizmetFiyat" placeholder="Fiyat">
+            <button onclick="hizmetEkle()">Ekle</button>
+            <ul id="hizmetListe"></ul>
         `;
-
-        document.getElementById("btnHizmet").addEventListener("click", hizmetEkle);
         renderHizmetler();
     }
 
     if (page === "urunler") {
         content.innerHTML = `
-            <h1>Ürünler</h1>
-
-            <div class="form-group">
-                <label>Ürün İsmi</label>
-                <input id="urunAd">
-            </div>
-
-            <div class="form-group">
-                <label>Fiyat</label>
-                <input id="urunFiyat">
-            </div>
-
-            <button id="btnUrun">Ekle</button>
-            <div id="urunListesi"></div>
+            <h2>Ürünler</h2>
+            <input id="urunAd" placeholder="Ürün İsmi">
+            <input id="urunFiyat" placeholder="Fiyat">
+            <button onclick="urunEkle()">Ekle</button>
+            <ul id="urunListe"></ul>
         `;
-
-        document.getElementById("btnUrun").addEventListener("click", urunEkle);
         renderUrunler();
+    }
+
+    if (page === "randevu") {
+        content.innerHTML = `<h2>Randevu</h2><p>Yakında...</p>`;
+    }
+
+    if (page === "kullanicilar") {
+        content.innerHTML = `<h2>Kullanıcılar</h2><p>Yakında...</p>`;
+    }
+
+    if (page === "ayarlar") {
+        content.innerHTML = `<h2>Ayarlar</h2><p>Yakında...</p>`;
     }
 }
 
-/* MÜŞTERİ */
+/************ MÜŞTERİLER ************/
 function musteriEkle() {
     const ad = document.getElementById("musteriAd").value;
     const tel = document.getElementById("musteriTel").value;
@@ -86,25 +69,25 @@ function musteriEkle() {
     if (!ad) return;
 
     musteriler.push({ ad, tel, adres });
+    saveData();
     renderMusteriler();
 }
 
 function renderMusteriler() {
-    const div = document.getElementById("musteriListesi");
-    if (!div) return;
+    const ul = document.getElementById("musteriListe");
+    ul.innerHTML = "";
 
-    div.innerHTML = "";
     musteriler.forEach((m, i) => {
-        div.innerHTML += `
-            <div class="list-item">
-                ${m.ad} - ${m.tel}
-                <button onclick="musteriler.splice(${i},1); renderMusteriler()">Sil</button>
-            </div>
+        ul.innerHTML += `
+            <li>
+                <strong>${m.ad}</strong> - ${m.tel} - ${m.adres}
+                <button onclick="musteriler.splice(${i},1); saveData(); renderMusteriler()">Sil</button>
+            </li>
         `;
     });
 }
 
-/* HİZMET */
+/************ HİZMETLER ************/
 function hizmetEkle() {
     const ad = document.getElementById("hizmetAd").value;
     const fiyat = document.getElementById("hizmetFiyat").value;
@@ -112,25 +95,25 @@ function hizmetEkle() {
     if (!ad) return;
 
     hizmetler.push({ ad, fiyat });
+    saveData();
     renderHizmetler();
 }
 
 function renderHizmetler() {
-    const div = document.getElementById("hizmetListesi");
-    if (!div) return;
+    const ul = document.getElementById("hizmetListe");
+    ul.innerHTML = "";
 
-    div.innerHTML = "";
     hizmetler.forEach((h, i) => {
-        div.innerHTML += `
-            <div class="list-item">
-                ${h.ad} - ${h.fiyat} ₺
-                <button onclick="hizmetler.splice(${i},1); renderHizmetler()">Sil</button>
-            </div>
+        ul.innerHTML += `
+            <li>
+                <strong>${h.ad}</strong> - ${h.fiyat} ₺
+                <button onclick="hizmetler.splice(${i},1); saveData(); renderHizmetler()">Sil</button>
+            </li>
         `;
     });
 }
 
-/* ÜRÜN */
+/************ ÜRÜNLER ************/
 function urunEkle() {
     const ad = document.getElementById("urunAd").value;
     const fiyat = document.getElementById("urunFiyat").value;
@@ -138,34 +121,39 @@ function urunEkle() {
     if (!ad) return;
 
     urunler.push({ ad, fiyat });
+    saveData();
     renderUrunler();
 }
 
 function renderUrunler() {
-    const div = document.getElementById("urunListesi");
-    if (!div) return;
+    const ul = document.getElementById("urunListe");
+    ul.innerHTML = "";
 
-    div.innerHTML = "";
     urunler.forEach((u, i) => {
-        div.innerHTML += `
-            <div class="list-item">
-                ${u.ad} - ${u.fiyat} ₺
-                <button onclick="urunler.splice(${i},1); renderUrunler()">Sil</button>
-            </div>
+        ul.innerHTML += `
+            <li>
+                <strong>${u.ad}</strong> - ${u.fiyat} ₺
+                <button onclick="urunler.splice(${i},1); saveData(); renderUrunler()">Sil</button>
+            </li>
         `;
     });
 }
 
-/* TARİH & SAAT */
-function updateDateTime() {
-    const dt = document.getElementById("datetime");
-    if (!dt) return;
-
+/************ TARİH & SAAT ************/
+function updateClock() {
     const now = new Date();
-    dt.innerHTML =
-        now.toLocaleDateString("tr-TR") + "<br>" +
-        now.toLocaleTimeString("tr-TR");
+    const date = now.toLocaleDateString("tr-TR");
+    const time = now.toLocaleTimeString("tr-TR");
+
+    const top = document.getElementById("topClock");
+    const bottom = document.getElementById("bottomClock");
+
+    if (top) top.innerText = `${date} ${time}`;
+    if (bottom) bottom.innerText = `${date}\n${time}`;
 }
 
-setInterval(updateDateTime, 1000);
-updateDateTime();
+setInterval(updateClock, 1000);
+updateClock();
+
+/************ DEFAULT ************/
+loadPage("musteriler");
