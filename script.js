@@ -16,16 +16,21 @@ function loadPage(page) {
 /* TARİH & SAAT */
 function updateDateTime() {
     const now = new Date();
-    const options = {
+
+    const date = now.toLocaleDateString("tr-TR", {
         day: "2-digit",
         month: "2-digit",
-        year: "numeric",
+        year: "numeric"
+    });
+
+    const time = now.toLocaleTimeString("tr-TR", {
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit"
-    };
-    document.getElementById("datetime").innerText =
-        now.toLocaleDateString("tr-TR", options);
+    });
+
+    document.getElementById("datetime").innerHTML =
+        `<div>${date}</div><div>${time}</div>`;
 }
 
 setInterval(updateDateTime, 1000);
